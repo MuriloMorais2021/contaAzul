@@ -9,11 +9,14 @@ class HomeController extends Controller{
 			exit;
 		}
 	}
-	public function index()
-	{
+	public function index(){
 		$data = array();
+		$user = new Users();
+		$user->setLoggedUser(); 
+		$company = new Companies($user->getCompany());
 
-		$data['dev'] = "Tiago Ferreira da Silva";
+		$data['company_name'] = $company->getName();
+		$data['user_email'] = $user->getEmail();
 
 		$this->loadTemplate('Home/index', $data);
 	}
