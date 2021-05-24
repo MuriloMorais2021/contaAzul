@@ -15,12 +15,14 @@
 <body>
 	<div class="leftmenu">
 		<div class="company_name">
-			<?= isset($viewData['user_email']) ? $viewData['user_email'] : ''; ?>
+			<?= isset($viewData['company_name']) ? $viewData['company_name'] : ''; ?>
 		</div>
 		<div class="menu_area">
 			<ul>
 				<li><a href="<?=BASE_URL.'';?>">Home</a></li>
 				<li><a href="<?=BASE_URL.'Permissions';?>">Permissões</a></li>
+				<li><a href="<?=BASE_URL.'Users';?>">Usuários</a></li>
+				<li><a href="<?=BASE_URL.'Clients';?>">Clientes</a></li>
 			</ul>
 		</div>
 	</div>

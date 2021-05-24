@@ -21,8 +21,7 @@ class LoginController extends Controller{
 
         $this->loadView('Login/index', $data);
     }
-    public function logout()
-    {
+    public function logout(){
         $user = new Users();
         $user->logout();
 
