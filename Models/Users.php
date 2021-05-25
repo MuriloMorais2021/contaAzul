@@ -71,6 +71,14 @@ class Users extends Model{
 			return 0;
 		}
 	}
+	//metodo para retornar o id do usuario, no caso o identificador, esse sera apresentado no menu do template 
+	public function getId(){
+		if (isset($this->userInfo['id'])) {
+			return $this->userInfo['id'];
+		}else{
+			return 0;
+		}
+	}
 	public function getInfo($id, $id_company){
 		$data = array();
 		$sql = $this->db->prepare("SELECT * FROM users WHERE id = :id AND  id_company = :id_company");

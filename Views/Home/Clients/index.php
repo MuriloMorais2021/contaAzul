@@ -4,6 +4,8 @@
     <a href="<?= BASE_URL . 'Clients/add'; ?>" class="button">Adicionar Cliente</a>
 <?php endif;?>
 
+<input type="text" id="busca" data-type="search_clients">
+
 <?php if (isset($error) && !empty($error)) : ?>
     <div class="warning">
         <?= $error; ?>

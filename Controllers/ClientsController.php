@@ -39,6 +39,9 @@ class ClientsController extends Controller
             $data['clients_count'] = $clients->getCount($user->getCompany());
             $data['edit_permission'] = $user->hasPermission('clients_edit');
             $data['page_count'] = ceil($data['clients_count']/10);
+
+            $data['JS'] = '<script type="text/javascript" src="'.BASE_URL.'Assets/js/script.js"></script>';
+            
             $this->loadTemplate('Home/Clients/index', $data);
         } else {
             header("Location: " . BASE_URL);

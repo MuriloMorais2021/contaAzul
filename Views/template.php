@@ -23,6 +23,7 @@
 				<li><a href="<?=BASE_URL.'Permissions';?>">Permissões</a></li>
 				<li><a href="<?=BASE_URL.'Users';?>">Usuários</a></li>
 				<li><a href="<?=BASE_URL.'Clients';?>">Clientes</a></li>
+				<li><a href="<?=BASE_URL.'Inventory';?>">Estoque</a></li>
 			</ul>
 		</div>
 	</div>
@@ -40,6 +41,7 @@
 			<?php $this->loadViewInTemplate($viewName, $viewData); ?>
 		</div>
 	</div>
+	<script>var BASE_URL = '<?= BASE_URL;?>';</script>
 	<?= isset($viewData['JS']) ? $viewData['JS'] : ''; ?>
 </body>
 
