@@ -6,7 +6,7 @@
     <input type="text" name="name" required required><br><br>
     
     <label for="price">Preço</label><br>
-    <input type="text" name="price" data-mask="000,00" required><br><br>
+    <input type="text" name="price" data-mask="000.000.000.000.000,00" data-mask-reverse="true" required><br><br>
 
     <label for="quant">Quant.</label><br>
     <input type="number" name="quant" required><br><br>

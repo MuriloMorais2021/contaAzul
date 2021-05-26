@@ -1,7 +1,7 @@
 <h1>Estoque</h1>
 
 <?php if($add_permission):?>
-    <a href="<?= BASE_URL . 'Inventory/add'; ?>" class="button">Adicionar Cliente</a>
+    <a href="<?= BASE_URL . 'Inventory/add'; ?>" class="button">Adicionar Produto</a>
 <?php endif;?>
 
 <input type="text" id="busca" data-type="search_inventory">
@@ -25,9 +25,9 @@
         <?php foreach ($inventory_list as $inventory) : ?>
             <tr>
                 <td><?= $inventory['name'] ;?></td>
-                <td><?= number_format($inventory['price'], 2) ;?></td>
-                <td><?= $inventory['quant'] ;?></td>
-                <td class="<?= $inventory['min_quant'] > $inventory['quant']? 'text-red':'';?>" ><?= $inventory['min_quant'];?></td>
+                <td width="150">R$ <?= number_format($inventory['price'], 2, ',', '.') ;?></td>
+                <td width="70" class="text-center"><?= $inventory['quant'] ;?></td>
+                <td width="100" class="text-center <?=  ($inventory['min_quant'] > $inventory['quant'])? 'text-danger':'';?>" ><?= $inventory['min_quant'];?></td>
                 <td width="200">
                 <?php if($edit_permission):?>
                     <a href="<?= BASE_URL . 'Inventory/edit/' . $inventory['id']; ?>" class="button button_small">Editar</a>

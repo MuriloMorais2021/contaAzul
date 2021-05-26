@@ -81,6 +81,9 @@ body{
 .menu_area li:nth-child(5){
     background-image: url('../img/inventory.png');
 }
+.menu_area li:nth-child(6){
+    background-image: url('../img/sales.png');
+}
 .area{
     padding: 15px;
 }
@@ -233,4 +236,10 @@ table td{
 }
 .si:hover{
     background-color: #eee;
+}
+.text-danger{
+    background-color: #ff8585;
+}
+.text-center{
+    text-align: center;
 }

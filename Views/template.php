@@ -24,6 +24,7 @@
 				<li><a href="<?=BASE_URL.'Users';?>">Usuários</a></li>
 				<li><a href="<?=BASE_URL.'Clients';?>">Clientes</a></li>
 				<li><a href="<?=BASE_URL.'Inventory';?>">Estoque</a></li>
+				<li><a href="<?=BASE_URL.'Sales';?>">Vendas</a></li>
 			</ul>
 		</div>
 	</div>
