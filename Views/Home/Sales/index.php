@@ -31,7 +31,6 @@
                 <td width="200">
                 <?php if($edit_permission):?>
                     <a href="<?= BASE_URL . 'Sales/edit/' . $sales['id']; ?>" class="button button_small">Editar</a>
-                    <a href="<?= BASE_URL . 'Sales/delete/' . $sales['id']; ?>" class="button button_small" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
                 <?php else:?>
                     <a href="<?= BASE_URL . 'Sales/view/' . $sales['id']; ?>" class="button button_small">visualizar</a>
                 <?php endif;?>

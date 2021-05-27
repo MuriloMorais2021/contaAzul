@@ -243,3 +243,12 @@ table td{
 .text-center{
     text-align: center;
 }
+.p_quant{
+    width: 40px !important;
+    text-align: center;
+}
+.button_small_delete{
+    height: 30px;
+    line-height: 30px;
+    color: #224074;
+}
