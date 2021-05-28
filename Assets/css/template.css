@@ -84,6 +84,12 @@ body{
 .menu_area li:nth-child(6){
     background-image: url('../img/sales.png');
 }
+.menu_area li:nth-child(7){
+    background-image: url('../img/purchases.png');
+}
+.menu_area li:nth-child(8){
+    background-image: url('../img/reports.png');
+}
 .area{
     padding: 15px;
 }
@@ -251,4 +257,25 @@ table td{
     height: 30px;
     line-height: 30px;
     color: #224074;
+}
+.report_item {
+    width: 150px;
+    height: 140px;
+    background-color: #CCC;
+    float: left;
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+    font-size: 17px;
+}
+.report_item a{
+    display: block;
+    color: #000;
+    text-decoration: none;
+}
+.report-grid-4{
+    width: 25%;
+    height: 150px;
+    float: left;
+    text-align: center;
 }

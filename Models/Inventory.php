@@ -102,4 +102,15 @@ class Inventory extends Model{
 
         return $data;
     }
+    public function getInventoryFiltered($id_company){
+        $data = array();
+        $sql = $this->db->prepare("SELECT *, (min_quant - quant) as dif FROM inventory WHERE quant <= min_quant AND id_company = :id_company ORDER BY dif DESC");
+        $sql->bindValue(':id_company', $id_company);
+        $sql->execute();
+
+        if($sql->rowCount()>0){
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $data;
+    }
 }

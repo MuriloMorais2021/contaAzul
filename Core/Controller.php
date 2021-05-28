@@ -23,4 +23,9 @@ class Controller{
 		extract($viewData);
 		require 'Views/'.$viewName.'.php';
 	}
+	public function loadLibrary($lib){
+		if(file_exists('Libraries/'.$lib.'.php')){
+			include 'Libraries/'.$lib.'.php';
+		}
+	}
 }
