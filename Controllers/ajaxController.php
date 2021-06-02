@@ -42,5 +42,17 @@ class ajaxController extends Controller{
         }
         echo json_encode($data);
     }
+    public function get_city_list(){
+        $data = array();
+        $user = new Users();
+        $user->setLoggedUser();
+        $cidade = new Cidade();
 
+        if(isset($_GET['state']) && !empty($_GET['state'])){
+            $state = addslashes($_GET['state']);
+
+            $data['cities'] = $cidade->getCityList($state);
+        }
+        echo json_encode($data);
+    }
 }

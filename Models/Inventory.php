@@ -13,6 +13,19 @@ class Inventory extends Model{
         return $data;
 
     }
+    public function getInfo($id, $id_company){
+        $data = array();
+
+        $sql = $this->db->prepare("SELECT * FROM inventory WHERE id = :id AND id_company = :id_company");
+        $sql->bindValue(':id', $id);
+        $sql->bindValue(':id_company', $id_company);
+        $sql->execute();
+
+        if($sql->rowCount()>0){
+            $data = $sql->fetch(PDO::FETCH_ASSOC);
+        }
+        return $data;
+    }
     public function downInventory($id_prod, $qtd, $id_company, $id_user){
         $sql = $this->db->prepare("UPDATE inventory SET quant = quant - $qtd WHERE id = :id_prod AND id_company = :id_company");
         $sql->bindValue(':id_prod', $id_prod);

@@ -37,7 +37,111 @@ class SalesController extends Controller{
             exit;
         }
     }
+    public function view_nfe($nfe_key){
+        
+    }
+    public function generate_nfe($id_sale){
+        $data = array();
+        $user = new Users();
+        $user->setLoggedUser();
+        $company = new Companies($user->getCompany());
+        $sales = new Sales();
+        $clients = new Clients();
 
+        $cNF = $company->getNextNFE();
+
+        $sales_info = $sales->getAllInfo($id_sale, $user->getCompany());
+        $client_info = $clients->getInfo($sales_info['info']['id_client'], $user->getCompany());
+        
+        $fatinfo = array(
+            'nfat' => $id_sale,
+            'vorig' => number_format($sales_info['info']['total_price'], 2),
+            'vdesc' => '',
+            'modFrete'=> '9'
+        );
+        
+        $dest = array(
+            'cpf' => $client_info['cpf'],
+            'cnpj' => $client_info['cnpj'],
+            'idestrangeiro' => $client_info['foreignid'],
+            'nome' => $client_info['name'],
+            'email' => $client_info['email'],
+            'iedest' => $client_info['iedest'],
+            'ie' => $client_info['ie'],
+            'isuf' => $client_info['isuf'],
+            'im' => $client_info['im'],
+            'end' => array(
+                'logradouro' => $client_info['address'],
+                'numero' => $client_info['address_number'],
+                'complemento' => $client_info['address2'],
+                'bairro' => $client_info['address_neighb'],
+                'mu' => $client_info['address_city'],
+                'uf' => $client_info['address_state'],
+                'cep' => $client_info['address_zipcode'],
+                'pais' => $client_info['address_country'],
+                'fone' => $client_info['phone'],
+                'cmu' => $client_info['address_citycode'],
+                'cpais' => $client_info['address_countrycode']
+            )
+        );
+        $prods = array();
+        foreach($sales_info['products'] as $prod){
+            $sale_price = number_format($prod['sale_price'], 2);
+            $prods[] = array(
+                'cProd' => $prod['id_product'],
+                'cEAN' => $prod['c']['cEAN'],
+                'xProd' => $prod['c']['name'],
+                'NCM' => $prod['c']['NCM'],
+                'EXTIPI' => $prod['c']['EXTIPI'],
+                'CFOP' => $prod['c']['CFOP'],
+                'uCom' => $prod['c']['uCom'],
+                'vUnCom' => $sale_price,
+                'cEANTrib' => $prod['c']['cEANTrib'],
+                'uTrib' => $prod['c']['uTrib'],
+                'vUnTrib' => $sale_price,
+                'vFrete' => $prod['c']['vFrete'],
+                'vSeg' => $prod['c']['vSeg'],
+                'vDesc' => $prod['c']['vDesc'],
+                'vOutro' => $prod['c']['vOutro'],
+                'indTot' => $prod['c']['indTot'],
+                'xPed' => $prod['c']['xPed'],
+                'nItemPed' => $prod['c']['nItemPed'],
+                'nFCI' => $prod['c']['nFCI'],
+                'cst' => $prod['c']['cst'],
+                'pPIS' => number_format($prod['c']['pPIS'], 2),
+                'pCOFINS' => number_format($prod['c']['pCOFINS'], 2),
+                'csosn' => $prod['c']['csosn'],
+                'pICMS' => $prod['c']['pICMS'], // 18
+                'orig' => $prod['c']['orig'],
+                'modBC' => $prod['c']['modBC'],
+                'vICMSDeson' => $prod['c']['vICMSDeson'],
+                'pRedBC' => $prod['c']['pRedBC'],
+                'modBCST' => $prod['c']['modBCST'],
+                'pMVAST' => $prod['c']['pMVAST'],
+                'pRedBCST' => $prod['c']['pRedBCST'],
+                'vBCSTRet' => $prod['c']['vBCSTRet'],
+                'vICMSSTRet' => $prod['c']['vICMSSTRet'],
+                'qBCProd' => $prod['c']['qBCProd'],
+                'vAliqProd' => $prod['c']['vAliqProd'],
+                'qCom' => $prod['quant'],
+                'vProd' => ($prod['quant'] * $sale_price),
+                'vBC' => ($prod['quant'] * $sale_price),
+                'qTrib' => $prod['quant']
+            );
+        }
+
+        $nfe = new Nfe();
+        $chave = $nfe->emitirNFE($cNF, $dest, $prods, $fatinfo);
+
+        if(!empty($chave)){
+            $company->setNFE($cNF, $user->getCompany());
+
+            $sales->setNFEKey($chave, $id_sale);
+            header("Location: ".BASE_URL."sales/view_nfe/".$chave);
+            exit;
+        }
+
+    }
     public function add(){
         $data = array();
         $user = new Users();

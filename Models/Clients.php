@@ -48,8 +48,8 @@ class Clients extends Model{
 
         return $data;
     }
-    public function add($name, $email, $phone, $stars, $internal_obs, $address_zipcode, $address, $address_number, $address2, $address_neighb, $address_city, $address_state, $address_country, $id_company){
-        $sql = $this->db->prepare("INSERT INTO clients SET name = :name, email = :email, phone = :phone, address = :address, address_number = :address_number, address2 = :address2, address_neighb = :address_neighb, address_city = :address_city, address_state = :address_state, address_country = :address_country, address_zipcode = :address_zipcode, stars = :stars, internal_obs = :internal_obs, id_company = :id_company");
+    public function add($name, $email, $phone, $stars, $internal_obs, $address_zipcode, $address, $address_number, $address2, $address_neighb, $address_city, $address_state, $address_country, $address_city_cod, $id_company){
+        $sql = $this->db->prepare("INSERT INTO clients SET name = :name, email = :email, phone = :phone, address = :address, address_number = :address_number, address2 = :address2, address_neighb = :address_neighb, address_city = :address_city, address_state = :address_state, address_country = :address_country, address_zipcode = :address_zipcode, stars = :stars, internal_obs = :internal_obs, address_citycode = :address_city_cod, address_countrycode = 1058, id_company = :id_company");
         $sql->bindValue(':name', $name);
         $sql->bindValue(':email', $email);
         $sql->bindValue(':address', $address);
@@ -63,12 +63,13 @@ class Clients extends Model{
         $sql->bindValue(':stars', $stars);
         $sql->bindValue(':internal_obs', $internal_obs);
         $sql->bindValue(':phone', $phone);
+        $sql->bindValue(':address_city_cod', $address_city_cod);
         $sql->bindValue(':id_company', $id_company);  
         $sql->execute();
     }
 
-    public function edit($name, $email, $phone, $stars, $internal_obs, $address_zipcode, $address, $address_number, $address2, $address_neighb, $address_city, $address_state, $address_country, $id, $id_company){
-        $sql = $this->db->prepare("UPDATE clients SET name = :name, email = :email, phone = :phone, address = :address, address_number = :address_number, address2 = :address2, address_neighb = :address_neighb, address_city = :address_city, address_state = :address_state, address_country = :address_country, address_zipcode = :address_zipcode, stars = :stars, internal_obs = :internal_obs WHERE id = :id AND id_company = :id_company");
+    public function edit($name, $email, $phone, $stars, $internal_obs, $address_zipcode, $address, $address_number, $address2, $address_neighb, $address_city, $address_state, $address_country, $id, $id_company, $address_city_cod){
+        $sql = $this->db->prepare("UPDATE clients SET name = :name, email = :email, phone = :phone, address = :address, address_number = :address_number, address2 = :address2, address_neighb = :address_neighb, address_city = :address_city, address_citycode = :address_city_cod, address_state = :address_state, address_country = :address_country, address_countrycode = 1058, address_zipcode = :address_zipcode, stars = :stars, internal_obs = :internal_obs WHERE id = :id AND id_company = :id_company");
         $sql->bindValue(':name', $name);
         $sql->bindValue(':email', $email);
         $sql->bindValue(':address', $address);
@@ -76,6 +77,7 @@ class Clients extends Model{
         $sql->bindValue(':address2', $address2);
         $sql->bindValue(':address_neighb', $address_neighb);
         $sql->bindValue(':address_city', $address_city);
+        $sql->bindValue(':address_city_cod', $address_city_cod);
         $sql->bindValue(':address_state', $address_state);
         $sql->bindValue(':address_country', $address_country);
         $sql->bindValue(':address_zipcode', $address_zipcode);

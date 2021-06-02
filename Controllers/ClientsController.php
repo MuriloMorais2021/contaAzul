@@ -59,6 +59,7 @@ class ClientsController extends Controller
 
         if ($user->hasPermission('clients_edit')) {
             $clients = new Clients();
+            $cidade = new Cidade();
 
             if(isset($_POST['name']) && !empty($_POST['name'])){
                 $name = addslashes($_POST['name']);
@@ -71,16 +72,18 @@ class ClientsController extends Controller
                 $address_number = addslashes($_POST['address_number']);
                 $address2 = addslashes($_POST['address2']);
                 $address_neighb = addslashes($_POST['address_neighb']);
-                $address_city = addslashes($_POST['address_city']);
+                $address_city_cod = addslashes($_POST['address_city']);
                 $address_state = addslashes($_POST['address_state']);
                 $address_country = addslashes($_POST['address_country']);
+                $address_city = $cidade->getCity($address_city_cod);
                 
-                $clients->add($name, $email, $phone, $stars, $internal_obs, $address_zipcode, $address, $address_number, $address2, $address_neighb, $address_city, $address_state, $address_country, $user->getCompany());
+
+
+                $clients->add($name, $email, $phone, $stars, $internal_obs, $address_zipcode, $address, $address_number, $address2, $address_neighb, $address_city, $address_state, $address_country, $address_city_cod,$user->getCompany());
                 header("Location: ".BASE_URL."Clients");
                 exit;
             }
-
-
+            $data['states_list'] = $cidade->getStates();
             $data['JS'] = '<script src="'.BASE_URL.'Assets/js/script_clients.js"></script>';
 
             $this->loadTemplate('Home/Clients/add', $data);
@@ -101,6 +104,7 @@ class ClientsController extends Controller
 
         if ($user->hasPermission('clients_edit')) {
             $clients = new Clients();
+            $cidade = new Cidade();
 
             if(isset($_POST['name']) && !empty($_POST['name'])){
                 $name = addslashes($_POST['name']);
@@ -113,18 +117,24 @@ class ClientsController extends Controller
                 $address_number = addslashes($_POST['address_number']);
                 $address2 = addslashes($_POST['address2']);
                 $address_neighb = addslashes($_POST['address_neighb']);
-                $address_city = addslashes($_POST['address_city']);
+                $address_city_cod = addslashes($_POST['address_city']);
                 $address_state = addslashes($_POST['address_state']);
                 $address_country = addslashes($_POST['address_country']);
                 
-                $clients->edit($name, $email, $phone, $stars, $internal_obs, $address_zipcode, $address, $address_number, $address2, $address_neighb, $address_city, $address_state, $address_country, $id, $user->getCompany());
+                $address_city = $cidade->getCity($address_city_cod);
+                
+                $clients->edit($name, $email, $phone, $stars, $internal_obs, $address_zipcode, $address, $address_number, $address2, $address_neighb, $address_city, $address_state, $address_country, $id, $user->getCompany(), $address_city_cod);
                 header("Location: ".BASE_URL."Clients");
                 exit;
             }
+            
+            $data['client_info'] = $clients->getInfo($id, $user->getCompany());
+            
+            $data['states_list'] = $cidade->getStates(); 
+            $data['cities_list'] = $cidade->getCityList($data['client_info']['address_state']); 
 
             $data['JS'] = '<script src="'.BASE_URL.'Assets/js/script_clients.js"></script>';
 
-            $data['client_info'] = $clients->getInfo($id, $user->getCompany());
 
             $this->loadTemplate('Home/Clients/edit', $data);
         } else {

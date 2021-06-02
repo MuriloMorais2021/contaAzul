@@ -28,11 +28,12 @@
                 <td><?= date('d/m/Y', strtotime($sales['date_sale'])) ;?></td>
                 <td><?= $statuses[$sales['status']] ;?></td>
                 <td>R$ <?= number_format($sales['total_price'],2, ',', '.') ;?></td>
-                <td width="200">
-                <?php if($edit_permission):?>
-                    <a href="<?= BASE_URL . 'Sales/edit/' . $sales['id']; ?>" class="button button_small">Editar</a>
+                <td width="250">
+                <a href="<?= BASE_URL . 'Sales/edit/' . $sales['id']; ?>" class="button button_small">Editar</a>
+                <?php if(!empty($sales['nfe_key'])):?>
+                    <a href="<?= BASE_URL . 'Sales/view_nfe/' . $sales['nfe_key']; ?>" class="button button_small" target="_blank">visualizar Nota</a>
                 <?php else:?>
-                    <a href="<?= BASE_URL . 'Sales/view/' . $sales['id']; ?>" class="button button_small">visualizar</a>
+                        <a href="<?= BASE_URL . 'Sales/generate_nfe/' . $sales['id']; ?>" class="button button_small">Emitir NF-e</a>
                 <?php endif;?>
                 </td>
             </tr>
