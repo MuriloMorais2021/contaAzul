@@ -25,6 +25,7 @@ class HomeController extends Controller{
 		$data['expenses'] = $sales->getTotalExpenses(date('y-m-d', strtotime('-30 days')), date('Y-m-d'), $user->getCompany());
 
 		$data['revenue_list'] = array();
+
 		for($i=30; $i>0; $i--){
 			$data['days_list'][] = date('d/m', strtotime('-'.$i.' days'));;
 		}
@@ -40,6 +41,7 @@ class HomeController extends Controller{
 			var status_name_list = '.json_encode(array_values($data['statuses'])).';
 			var status_value_list = '.json_encode(array_values($data['status_list'])).';
 		</script>';
+		
 		$data['JS'] .= '<script type="text/javascript" src="'.BASE_URL.'Assets/js/Chart.min.js"></script>';
 		$data['JS'] .= '<script type="text/javascript" src="'.BASE_URL.'Assets/js/script_home.js"></script>';
 
