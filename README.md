@@ -1,1 +1,1 @@
-<h1 style="text-align: center;">Conta Azul</h1>
+<h1>Conta Azul</h1>
