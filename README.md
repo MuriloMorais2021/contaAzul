@@ -1,4 +1,4 @@
-<h1 align="center">Conta Azul</h1>
+<h1 align="center">Réplica do Conta Azul</h1>
 <br>
 
 ## 🚀 Tecnologias
